@@ -1,52 +1,63 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/immer@6.0.3/dist/immer.umd.production.min.js"></script>
     <link href="/dist/styles.css" rel="stylesheet" />
-</head>
-<style>
+  </head>
+  <style>
     /* Paste generated styles here */
-</style>
+  </style>
 
-<body class="min-h-screen">
+  <body class="min-h-screen">
     <div class="w-full flex flex-col items-center justify-center px-4">
-        <table class="w-full table-auto">
-            <thead class="font-bold">
-                <tr class="border-b-2 text-left">
-                    <th class="py-4 px-2">ID</th>
-                    <th class="py-4 px-2">Date de création</th>
-                    <th class="py-4 px-2">Etat</th>
-                    <th class="py-4 px-2">Nom</th>
-                    <th class="py-4 px-2">Prénom</th>
-                    <th class="py-4 px-2">Nom d'utilisateur</th>
-                    <th class="py-4 px-2">Matricule</th>
-                    <th class="py-4 px-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-center">
-                    <td colspan="8">Aucue donnée</td>
-                </tr>
-                <tr class="border-b-2 last:border-0">
-                    <td class="py-4 px-2">XXXXXXXXX</td>
-                    <td class="py-4 px-2">XX/XX/XXXX</td>
-                    <td class="py-4 px-2 flex flex-col items-center justify-center gap-2">
-                        <span class="text-center w-full bg-on-validation px-3 py-2 rounded-lg">En validation</span>
-                        <span class="text-center w-full bg-valide px-3 py-2 rounded-lg">Valide</span>
-                        <span class="text-center w-full bg-rejected px-3 py-2 rounded-lg">Rejeté</span>
-                    </td>
-                    <td class="py-4 px-2">XXXX</td>
-                    <td class="py-4 px-2">XXXXXXXX</td>
-                    <td class="py-4 px-2">XXXXXX</td>
-                    <td class="py-4 px-2">XXXX</td>
-                    <td class="py-4 px-2">button</td>
-                </tr>
-            </tbody>
-        </table>
+      <table class="w-full table-auto">
+        <thead class="font-bold">
+          <tr class="border-b-2 text-left">
+            <th class="py-4 px-2">ID</th>
+            <th class="py-4 px-2">Date de création</th>
+            <th class="py-4 px-2">Etat</th>
+            <th class="py-4 px-2">Nom</th>
+            <th class="py-4 px-2">Prénom</th>
+            <th class="py-4 px-2">Nom d'utilisateur</th>
+            <th class="py-4 px-2">Matricule</th>
+            <th class="py-4 px-2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td colspan="8">Aucue donnée</td>
+          </tr>
+          <tr class="border-b-2 last:border-0">
+            <td class="py-4 px-2">XXXXXXXXX</td>
+            <td class="py-4 px-2">XX/XX/XXXX</td>
+            <td
+              class="py-4 px-2 flex flex-col items-center justify-center gap-2"
+            >
+              <span
+                class="text-center w-full bg-on-validation px-3 py-2 rounded-lg"
+                >En validation</span
+              >
+              <!-- <span class="text-center w-full bg-valide px-3 py-2 rounded-lg">Valide</span>
+                        <span class="text-center w-full bg-rejected px-3 py-2 rounded-lg">Rejeté</span> -->
+            </td>
+            <td class="py-4 px-2">XXXX</td>
+            <td class="py-4 px-2">XXXXXXXX</td>
+            <td class="py-4 px-2">XXXXXX</td>
+            <td class="py-4 px-2">XXXX</td>
+            <td class="py-4 px-2 flex items-center justify-center">
+              <button>
+                <img
+                  src="/public/trash-bin.svg"
+                  class="h-5"
+                  alt="delete"
+                />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</body>
-
+  </body>
 </html>
