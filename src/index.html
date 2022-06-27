@@ -20,6 +20,7 @@
         <label class="flex flex-col gap-2">
           <span>Nom</span>
           <input
+            id="FIRSTNAME-INPUT"
             type="text"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
@@ -27,6 +28,7 @@
         <label class="flex flex-col gap-2">
           <span>Prénom</span>
           <input
+            id="LASTNAME-INPUT"
             type="text"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
@@ -34,6 +36,7 @@
         <label class="flex flex-col gap-2">
           <span>Etat</span>
           <input
+            id="STATE-INPUT"
             type="text"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
@@ -41,6 +44,7 @@
         <label class="flex flex-col gap-2">
           <span>Nom d'utilisateur</span>
           <input
+            id="USERNAME-INPUT"
             type="text"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
@@ -48,13 +52,15 @@
         <label class="flex flex-col gap-2">
           <span>Date de création</span>
           <input
-            type="text"
+            id="CREATION-DATE-INPUT"
+            type="date"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2 row-start-3">
           <span>Matricule</span>
           <input
+            id="MATRICULE-INPUT"
             type="text"
             class="border rounded-lg leading-8 border-gray-400 w-full"
           />
@@ -144,7 +150,7 @@
     <script>
       const App = {
         state: {
-          addNewUserPageOpened: false,
+          addNewUserPageOpened: true,
           noDataViewDisplay: false,
           users: [
             {
@@ -294,6 +300,43 @@
             withDataView.innerHTML += newUserRow?.innerHTML;
           });
         },
+        addNewUserDataToState(newUser) {
+          const updatedUsers = [...this.state?.users, newUser];
+          this.updateState({ users: updatedUsers });
+        },
+        addNewUser() {
+          const firstPageFrame = document?.querySelector("#FIRST_PAGE");
+          const firstNameFrame =
+            firstPageFrame?.querySelector("#FIRSTNAME-INPUT");
+          const firstNameInputValue = firstNameFrame?.value;
+          const lastNameFrame =
+            firstPageFrame?.querySelector("#LASTNAME-INPUT");
+          const lastNameInputValue = lastNameFrame?.value;
+          const stateFrame = firstPageFrame?.querySelector("#STATE-INPUT");
+          const stateInputValue = stateFrame?.value;
+          const usernameFrame =
+            firstPageFrame?.querySelector("#USERNAME-INPUT");
+          const usernameInputValue = usernameFrame?.value;
+          const creationDateFrame = firstPageFrame?.querySelector(
+            "#CREATION-DATE-INPUT"
+          );
+          const creationDateInputValue = creationDateFrame?.value;
+          const matriculeFrame =
+            firstPageFrame?.querySelector("#MATRICULE-INPUT");
+          const matriculeInputValue = matriculeFrame?.value;
+
+          const id = Math.random().toString(36).slice(2);
+          const newUser = {
+            id,
+            createdDate: creationDateInputValue,
+            status: stateInputValue,
+            firstName: firstNameInputValue,
+            lastName: lastNameInputValue,
+            userName: usernameInputValue,
+            registrationNumber: matriculeInputValue,
+          };
+          this.addNewUserDataToState(newUser);
+        },
         updateState(newState = {}) {
           this.state = { ...this?.state, ...newState };
         },
@@ -310,6 +353,7 @@
             this.togglePage();
           });
           registerNewUserButton?.addEventListener("click", () => {
+            this.addNewUser();
             this.togglePage();
           });
           deleteButtons?.forEach((deleteButton, userInd) => {
