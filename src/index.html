@@ -10,7 +10,7 @@
     /* Paste generated styles here */
   </style>
 
-  <body class="min-h-screen p-8 bg-gray-200">
+  <body class="min-h-screen p-8 bg-gray-200" id="BODY">
     <div
       id="FIRST_PAGE"
       class="flex flex-col gap-12 bg-white shadow-lg p-4 rounded-md"
@@ -177,8 +177,15 @@
           ],
         },
         initialize() {
-          // this.registerUIEvents();
           this.updateUI();
+        },
+        getClonedBody() {
+          const clonedBody = document.querySelector("#BODY").cloneNode(true);
+          return clonedBody;
+        },
+        replaceBodyWithClone() {
+          const bodyFrame = document.querySelector("#BODY");
+          bodyFrame.replaceWith(this.getClonedBody());
         },
         togglePage() {
           const newToggleState = !this.state?.addNewUserPageOpened;
@@ -315,6 +322,7 @@
           });
         },
         updateUI() {
+          this.replaceBodyWithClone();
           this.generateUsersRows();
           this.registerUIEvents();
           const firstPage = document?.querySelector("#FIRST_PAGE");
