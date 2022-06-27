@@ -93,7 +93,7 @@
             </tr>
           </tbody>
           <tbody id="WITH_DATA_VIEW">
-            <tr class="USER-ROW border-b-2 last:border-0">
+            <tr id="USER-ROW-SAMPLE" class="border-b-2 last:border-0">
               <td class="ID py-4 px-2">XXXX</td>
               <td class="CREATION-DATE py-4 px-2">XX/XX/XXXX</td>
               <td
@@ -177,7 +177,7 @@
           ],
         },
         initialize() {
-          this.registerUIEvents();
+          // this.registerUIEvents();
           this.updateUI();
         },
         togglePage() {
@@ -185,20 +185,65 @@
           this.updateState({ addNewUserPageOpened: newToggleState });
           this.updateUI();
         },
+        togglePageView() {
+          const newToggleState = !this.state?.noDataViewDisplay;
+          this.updateState({ noDataViewDisplay: newToggleState });
+          this.updateUI();
+        },
+        checkNoDataView() {
+          if (!this.state?.users?.length) {
+            this.updateState({ noDataViewDisplay: true });
+          } else {
+            this.updateState({ noDataViewDisplay: false });
+          }
+        },
         deleteUser(userToDeleteInd) {
-          const newUsersState = this.state?.users?.filter((user, userInd) => {
-            userToDeleteInd !== userInd;
-          });
+          const newUsersState = this.state?.users?.filter(
+            (user, userInd) => userToDeleteInd !== userInd
+          );
           this.updateState({ users: newUsersState });
         },
         generateUsersRows() {
           const withDataView = document?.querySelector("#WITH_DATA_VIEW");
-          const userRowSample = document?.querySelector(".USER-ROW");
+          const userRowSample = document.createElement("tr");
+          userRowSample.innerHTML = `<tr id="USER-ROW-SAMPLE" class="border-b-2 last:border-0">
+              <td class="ID py-4 px-2">XXXX</td>
+              <td class="CREATION-DATE py-4 px-2">XX/XX/XXXX</td>
+              <td
+                class="STATE py-4 px-2 flex flex-col items-center justify-center gap-2"
+              >
+                <span
+                  class="IN-VALIDATION text-center w-full bg-on-validation px-3 py-2 rounded-lg"
+                  >En validation</span
+                >
+                <span
+                  class="VALIDATED text-center w-full bg-valide px-3 py-2 rounded-lg"
+                  >Valide</span
+                >
+                <span
+                  class="REJECTED text-center w-full bg-rejected px-3 py-2 rounded-lg"
+                  >Rejeté</span
+                >
+              </td>
+              <td class="NAME py-4 px-2">XXXX</td>
+              <td class="LAST-NAME py-4 px-2">XXXX</td>
+              <td class="USERNAME py-4 px-2">XXXX</td>
+              <td class="MATRICULE py-4 px-2">XXXX</td>
+              <td class="py-4 px-2 text-center">
+                <button>
+                  <img
+                    src="/public/trash-bin.svg"
+                    class="h-5 DELETE-BUTTON"
+                    alt="delete"
+                  />
+                </button>
+              </td>
+            </tr>`;
           withDataView.innerHTML = "";
           this.state?.users?.forEach((user) => {
             const newUserRow = userRowSample;
             const userIdFrame = newUserRow?.querySelector(".ID");
-            userIdFrame.textContent = `user?.id` || "";
+            userIdFrame.textContent = `${user?.id}` || "";
 
             const createdDate = new Date(user?.createdDate);
             const day = createdDate.getDate();
@@ -242,11 +287,6 @@
             withDataView.innerHTML += newUserRow?.innerHTML;
           });
         },
-        // togglePageView() {
-        //   const newToggleState = !this.state?.arrowDown;
-        //   this.updateState({ arrowDown: newToggleState });
-        //   this.updateUI();
-        // },
         updateState(newState = {}) {
           this.state = { ...this?.state, ...newState };
         },
@@ -266,20 +306,24 @@
             this.togglePage();
           });
           deleteButtons?.forEach((deleteButton, userInd) => {
+            console.log("userInd", userInd);
             if (!deleteButton) return;
             deleteButton.addEventListener("click", () => {
               this.deleteUser(userInd);
+              this.updateUI();
             });
           });
         },
         updateUI() {
           this.generateUsersRows();
+          this.registerUIEvents();
           const firstPage = document?.querySelector("#FIRST_PAGE");
           const secondPage = document?.querySelector("#SECOND_PAGE");
 
           const noDataView = document?.querySelector("#NO_DATA_VIEW");
           const withDataView = document?.querySelector("#WITH_DATA_VIEW");
 
+          this.checkNoDataView();
           if (!!this.state?.addNewUserPageOpened) {
             firstPage?.classList.remove("hidden");
             secondPage?.classList.add("hidden");
