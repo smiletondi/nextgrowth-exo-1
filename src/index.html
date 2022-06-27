@@ -22,7 +22,7 @@
           <input
             id="FIRSTNAME-INPUT"
             type="text"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="p-2 border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2">
@@ -30,7 +30,7 @@
           <input
             id="LASTNAME-INPUT"
             type="text"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="border p-2 rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2">
@@ -38,7 +38,7 @@
           <input
             id="STATE-INPUT"
             type="text"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="p-2 border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2">
@@ -46,7 +46,7 @@
           <input
             id="USERNAME-INPUT"
             type="text"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="p-2 border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2">
@@ -54,7 +54,7 @@
           <input
             id="CREATION-DATE-INPUT"
             type="date"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="p-2 border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
         <label class="flex flex-col gap-2 row-start-3">
@@ -62,7 +62,7 @@
           <input
             id="MATRICULE-INPUT"
             type="text"
-            class="border rounded-lg leading-8 border-gray-400 w-full"
+            class="p-2 border rounded-lg leading-8 border-gray-400 w-full"
           />
         </label>
       </div>
@@ -304,6 +304,14 @@
           const updatedUsers = [...this.state?.users, newUser];
           this.updateState({ users: updatedUsers });
         },
+        resetFirstPageIputFields() {
+          const firstPageFrame = document?.querySelector("#FIRST_PAGE");
+          const inputFields = firstPageFrame?.querySelectorAll("input");
+          console.log("inputFields", inputFields);
+          inputFields?.forEach((inputField) => {
+            inputField.value = "";
+          });
+        },
         addNewUser() {
           const firstPageFrame = document?.querySelector("#FIRST_PAGE");
           const firstNameFrame =
@@ -336,6 +344,7 @@
             registrationNumber: matriculeInputValue,
           };
           this.addNewUserDataToState(newUser);
+          this.resetFirstPageIputFields();
         },
         updateState(newState = {}) {
           this.state = { ...this?.state, ...newState };
