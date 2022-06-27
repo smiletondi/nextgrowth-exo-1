@@ -90,7 +90,7 @@
               <th class="py-4 px-2">Prénom</th>
               <th class="py-4 px-2">Nom d'utilisateur</th>
               <th class="py-4 px-2">Matricule</th>
-              <th class="py-4 px-2">Action</th>
+              <th class="py-4 px-2 text-center">Action</th>
             </tr>
           </thead>
           <tbody id="NO_DATA_VIEW">
@@ -150,7 +150,7 @@
     <script>
       const App = {
         state: {
-          addNewUserPageOpened: true,
+          addNewUserPageOpened: false,
           noDataViewDisplay: false,
           users: [
             {
@@ -196,11 +196,6 @@
         togglePage() {
           const newToggleState = !this.state?.addNewUserPageOpened;
           this.updateState({ addNewUserPageOpened: newToggleState });
-          this.updateUI();
-        },
-        togglePageView() {
-          const newToggleState = !this.state?.noDataViewDisplay;
-          this.updateState({ noDataViewDisplay: newToggleState });
           this.updateUI();
         },
         checkNoDataView() {
@@ -307,8 +302,8 @@
         resetFirstPageIputFields() {
           const firstPageFrame = document?.querySelector("#FIRST_PAGE");
           const inputFields = firstPageFrame?.querySelectorAll("input");
-          console.log("inputFields", inputFields);
           inputFields?.forEach((inputField) => {
+            if (!inputField) return;
             inputField.value = "";
           });
         },
@@ -366,7 +361,6 @@
             this.togglePage();
           });
           deleteButtons?.forEach((deleteButton, userInd) => {
-            console.log("userInd", userInd);
             if (!deleteButton) return;
             deleteButton.addEventListener("click", () => {
               this.deleteUser(userInd);
